@@ -1,2 +1,3 @@
 # full-stack-hacker-news
-Hacker News Redux 
+
+Hacker News recreated using MongoDB, ExpressJS, AngularJS and NodeJS.
