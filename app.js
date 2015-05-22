@@ -22,7 +22,7 @@ function($scope, posts){
   }
 }]);
 
-app.factor('posts', [function(){
+app.factory('posts', [function(){
   var o = {
   	posts: [{title: 'post 1', upvotes: 5},
     {title: 'post 2', upvotes: 2},
