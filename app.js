@@ -1,4 +1,5 @@
 var app = angular.module('hackerNews', ['ui.router']);
+
 app.config([
 '$stateProvider',
 '$urlRouterProvider',
