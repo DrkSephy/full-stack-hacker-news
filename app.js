@@ -51,7 +51,9 @@ app.controller('PostsCtrl', [
 '$stateParams',
 'posts',
 function($scope, $stateParams, posts){
-
+  // Set a scope object called that grabs the appropriate post
+  // from the `posts` service using the id from $stateParams
+  $scope.post = posts.posts[$stateParams.id];
 }]);
 
 app.factory('posts', [function(){
