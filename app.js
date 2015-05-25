@@ -12,13 +12,15 @@ function($stateProvider, $urlRouterProvider){
     })
 
     .state('posts', {
-      url: '/post/{id}',
+      url: '/posts/{id}',
       templateUrl: '/posts.html',
       controller: 'Posts.Ctrl'
     });
 
   $urlRouterProvider.otherwise('home');
 }]);
+
+
 
 app.controller('MainCtrl', [
 '$scope',
