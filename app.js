@@ -56,6 +56,16 @@ function($scope, $stateParams, posts){
   // Set a scope object called that grabs the appropriate post
   // from the `posts` service using the id from $stateParams
   $scope.post = posts.posts[$stateParams.id];
+
+  $scope.addComment = function(){
+    if($scope.body === '') { return; }
+    $scope.post.comments.push({
+      body: $scope.body,
+      author: 'user',
+      upvotes: 0
+    });
+    $scope.body = '';
+  };
 }]);
 
 app.factory('posts', [function(){
