@@ -60,6 +60,27 @@ router.get('/posts/:post', function(req, res){
 	res.json(req.post);
 });
 
+/* Route for upvoting a single post */
+router.put('/posts/:post/upvote', function(req, res, next){
+	req.post.upvote(function(err, post){
+		if (err) { return next(err); }
+
+		res.json(post);
+	});
+});
+
+/* Testing the upvote route 
+
+* 1. Create a post:
+*     curl --data 'title=test&link=http://test.com' http://localhost:3000/posts
+*     -> {"__v":0,"title":"test","link":"http://test.com","_id":"55648645002f632006801e7f","comments":[],"upvotes":0}
+* 2. Make sure it was saved:
+*     curl http://localhost:3000/posts
+*     -> [{"_id":"556483c4a31a022a037e323d","title":"test","link":"http://test.com","__v":0,"comments":[],"upvotes":0},{"_id":"55648645002f632006801e7f","title":"test","link":"http://test.com","__v":0,"comments":[],"upvotes":0}]
+* 3. Upvote it by passing in the _ID 
+*     curl -X PUT http://localhost:3000/posts/556483c4a31a022a037e323d/upvote
+*     -> {"_id":"556483c4a31a022a037e323d","title":"test","link":"http://test.com","__v":0,"comments":[],"upvotes":1}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
