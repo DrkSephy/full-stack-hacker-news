@@ -27,6 +27,16 @@ router.post('/posts', function(req, res, next){
 	});
 });
 
+/* Testing our GET and POST Routes 
+
+* First create a new post:
+* curl --data 'title=test&link=http://test.com' http://localhost:3000/posts
+
+* Second, we query the /posts route to make sure it was saved.
+* curl http://localhost:3000/posts
+
+*/
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
