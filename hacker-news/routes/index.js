@@ -14,6 +14,19 @@ router.get('/posts', function(req, res, next){
 	});
 });
 
+/* POST route for creating posts */
+router.post('/posts', function(req, res, next){
+	// Create new post object in memory before saving
+	// it to the database.
+	var post = new Post(req.body);
+
+	post.save(function(err, post){
+		if(err){ return next(err); }
+
+		res.json(post);
+	});
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
