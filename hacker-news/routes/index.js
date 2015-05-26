@@ -52,6 +52,10 @@ router.param('post', function(req, res, next, id){
 });
 
 /* Route for getting a single post */
+// NOTE: Since the post object was retrieved using the
+// middleware function above and attached to the req object,
+// the request handler simply has to return the JSON back
+// to the client. 
 router.get('/posts/:post', function(req, res){
 	res.json(req.post);
 });
