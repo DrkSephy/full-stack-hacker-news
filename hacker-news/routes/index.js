@@ -98,6 +98,15 @@ router.post('/posts/:post/comments', function(req, res, next){
 	});
 });
 
+/* Route for upvoting a comment */
+router.put('/posts/:post/comments/:comment/upvote', function(req, res, next){
+	req.comment.upvote(function(err, comment){
+		if(err){ return next(err); }
+
+		res.json(comment);
+	});
+});
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
