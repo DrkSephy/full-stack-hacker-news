@@ -98,6 +98,19 @@ router.post('/posts/:post/comments', function(req, res, next){
 	});
 });
 
+/* Middleware route for pre-loading comments */
+router.param('comment', function(req, res, next, id){
+	var query = Comment.findById(id);
+
+	query.exec(function(err, comment){
+		if(err){ return next(err); }
+		if(!comment){ return next(new Error('Cannot find comment')); }
+		
+		req.comment = comment;
+		return next();
+	});
+});
+
 /* Route for upvoting a comment */
 router.put('/posts/:post/comments/:comment/upvote', function(req, res, next){
 	req.comment.upvote(function(err, comment){
