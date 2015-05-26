@@ -51,6 +51,11 @@ router.param('post', function(req, res, next, id){
 	});
 });
 
+/* Route for getting a single post */
+router.get('/posts/:post', function(req, res){
+	res.json(req.post);
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
