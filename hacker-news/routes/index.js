@@ -81,6 +81,24 @@ router.put('/posts/:post/upvote', function(req, res, next){
 *     curl -X PUT http://localhost:3000/posts/556483c4a31a022a037e323d/upvote
 *     -> {"_id":"556483c4a31a022a037e323d","title":"test","link":"http://test.com","__v":0,"comments":[],"upvotes":1}
 
+
+/* Comments route for a particular post */
+router.post('/posts/:post/comments', function(req, res, next){
+	var comment = new Comment(req.body);
+	comment.post = req.post;
+
+	comment.save(function(err, comment){
+		if(err){ return next(err); }
+		req.post.comments.push(comment);
+		req.post.save(function(err, post){
+			if(err){ return next(err); }
+
+			res.json(comment);
+		}
+	});
+});
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
