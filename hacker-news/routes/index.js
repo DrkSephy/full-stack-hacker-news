@@ -56,8 +56,14 @@ router.param('post', function(req, res, next, id){
 // middleware function above and attached to the req object,
 // the request handler simply has to return the JSON back
 // to the client. 
-router.get('/posts/:post', function(req, res){
-	res.json(req.post);
+
+// NOTE: This route will use the populate() function to retrieve all comments
+// associated with a specific post. 
+router.get('/posts/:post', function(req, res, next){
+	req.post.populate('comments', function(err, post){
+		if(err){ return next(err); }
+		res.json(post);
+	});
 });
 
 /* Route for upvoting a single post */
