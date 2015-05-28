@@ -41,16 +41,17 @@ function($scope, posts){
     $scope.addPost = function() {
         if (!$scope.title || $scope.title === '') {
         posts.create({
-            title: $scope.title;
+            title: $scope.title,
             link: $scope.link,
         });
         $scope.title = '';
         $scope.link = '';
+        };
     };
-    
+
     $scope.incrementUpvotes = function(post) {
         post.upvotes += 1;
-    }
+    };
 
 }])
 
@@ -70,8 +71,8 @@ function($scope, $stateParams, posts) {
         });
         $scope.body = '';
     };
-    $scope.incrementUpvotes = function(comment){
-        comment.upvotes += 1;
+    $scope.incrementUpvotes = function(post){
+        posts.upvote(post);
     };
 }])
 
@@ -92,6 +93,14 @@ app.factory('posts', [function(){
         return $http.post('/posts', post).success(function(data){
             o.posts.push(data);
         });
+    };
+
+    // Upvote post method
+    o.upvote = function(post){
+        return $http.put('/posts/' + post._id + '/upvote')
+          .success(function(data){
+            post.upvotes += 1;
+          });
     };
 
     return o;
