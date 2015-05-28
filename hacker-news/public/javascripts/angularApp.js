@@ -73,8 +73,8 @@ function($scope, posts, post) {
         $scope.body = '';
     };
 
-    $scope.incrementUpvotes = function(post){
-        posts.upvote(post);
+    $scope.incrementUpvotes = function(comment){
+        posts.upvoteComment(post, comment);
     };
 }])
 
@@ -112,9 +112,18 @@ app.factory('posts', [function(){
         });
     };
 
+    // Add a comment
     o.addComment = function(id, comment){
         return $http.post('/posts/' + id + '/comments', comment);
-    }
+    };
+
+    // Upvote a comment 
+    o.upvoteComment = function(post, comment) {
+        return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote')
+          .success(function(data){
+            comment.upvotes += 1;
+          });
+    };
 
     return o;
 }]);
